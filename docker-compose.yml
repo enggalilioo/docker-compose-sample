@@ -1,13 +1,44 @@
-version: '3'
+version: '3.7'
+
+
 services:
-  web:
-    build: .
-    ports:
-      - "5000:5000"
-    #volumes: 
-    #  - .:/code
-    environment: 
-      FLASK_ENV: development
-  
-  redis:
-    image: "redis:alpine"
+
+########################## Jenkins #########################
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    restart: "no"
+    volumes: 
+      - /Users/enggalilioo/projects/home/jenkins_home:/var/jenkins_home
+    ports: 
+      - 8080:8080
+      - 50000:50000
+    
+
+########################## SonarQube ##########################
+  nexus:
+    image: sonatype/nexus3
+    container_name: nexus3
+    restart: "no"
+    volumes: 
+      - /Users/enggalilioo/projects/home/nexus_home:/nexus-data
+    ports: 
+      - 8081:8081
+
+########################## SonarQube ##########################
+  sonar:
+    image: sonarqube:lts
+    container_name: sonarqube
+    restart: "no"
+    volumes: 
+      - /Users/enggalilioo/projects/home/sonar_home/conf:/opt/sonarqube/conf
+      - /Users/enggalilioo/projects/home/sonar_home/extensions:/opt/sonarqube/extensions
+      - /Users/enggalilioo/projects/home/sonar_home/logs:/opt/sonarqube/logs
+      - /Users/enggalilioo/projects/home/sonar_home/data:/opt/sonarqube/data
+    ports: 
+      - 9000:9090
+
+
+
+    
+    
