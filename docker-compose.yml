@@ -3,7 +3,7 @@ version: '3.7'
 
 services:
 
-########################## Jenkins #########################
+########################## Jenkins:lts #########################
   jenkins:
     image: jenkins/jenkins:lts
     container_name: jenkins
@@ -15,7 +15,7 @@ services:
       - 50000:50000
     
 
-########################## SonarQube ##########################
+########################## Nexus OSS3 ##########################
   nexus:
     image: sonatype/nexus3
     container_name: nexus3
