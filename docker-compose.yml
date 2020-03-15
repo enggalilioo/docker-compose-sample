@@ -29,6 +29,8 @@ services:
   sonar:
     image: sonarqube:lts
     container_name: sonarqube
+    environment:
+      ES_JAVA_OPTS: "-Xms750m -Xmx750m"
     restart: "no"
     volumes: 
       - /Users/enggalilioo/projects/home/sonar_home/conf:/opt/sonarqube/conf
@@ -36,7 +38,7 @@ services:
       - /Users/enggalilioo/projects/home/sonar_home/logs:/opt/sonarqube/logs
       - /Users/enggalilioo/projects/home/sonar_home/data:/opt/sonarqube/data
     ports: 
-      - 9000:9090
+      - 9000:9000
 
 
 
