@@ -7,23 +7,25 @@ services:
   jenkins:
     image: jenkins/jenkins:lts
     container_name: jenkins
-    restart: "no"
+    restart: "unless-stopped"
     volumes: 
-      - /Users/enggalilioo/projects/home/jenkins_home:/var/jenkins_home
+      - /Users/enggalilioo/dev/home/jenkins_home:/var/jenkins_home
     ports: 
       - 8080:8080
       - 50000:50000
+    #username: admin, password: admin123
     
 
 ########################## Nexus OSS3 ##########################
   nexus:
     image: sonatype/nexus3
     container_name: nexus3
-    restart: "no"
+    restart: "unless-stopped"
     volumes: 
-      - /Users/enggalilioo/projects/home/nexus_home:/nexus-data
+      - /Users/enggalilioo/dev/home/nexus_home:/nexus-data
     ports: 
       - 8081:8081
+    #username: admin, password: admin123
 
 ########################## SonarQube ##########################
   sonar:
@@ -31,14 +33,27 @@ services:
     container_name: sonarqube
     environment:
       ES_JAVA_OPTS: "-Xms750m -Xmx750m"
-    restart: "no"
+    restart: "unless-stopped"
     volumes: 
-      - /Users/enggalilioo/projects/home/sonar_home/conf:/opt/sonarqube/conf
-      - /Users/enggalilioo/projects/home/sonar_home/extensions:/opt/sonarqube/extensions
-      - /Users/enggalilioo/projects/home/sonar_home/logs:/opt/sonarqube/logs
-      - /Users/enggalilioo/projects/home/sonar_home/data:/opt/sonarqube/data
+      - /Users/enggalilioo/dev/home/sonar_home/conf:/opt/sonarqube/conf
+      - /Users/enggalilioo/dev/home/sonar_home/extensions:/opt/sonarqube/extensions
+      - /Users/enggalilioo/dev/home/sonar_home/logs:/opt/sonarqube/logs
+      - /Users/enggalilioo/dev/home/sonar_home/data:/opt/sonarqube/data
     ports: 
       - 9000:9000
+    #username: admin, password: admin
+
+########################## Gogs ##########################
+  gogs:
+    image: gogs/gogs
+    container_name: gogs
+    restart: "unless-stopped"
+    volumes: 
+      - /Users/enggalilioo/dev/home/gogs_home:/data
+    ports:
+      - 10080:3000
+      #- 10022:22
+    #username: ahmed, password: admin123
 
 
 
