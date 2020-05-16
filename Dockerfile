@@ -1,9 +1,13 @@
-FROM python:3.7-alpine
-WORKDIR /code
-ENV FLASK_APP app.py
-ENV FLASK_RUN_HOST 0.0.0.0
-RUN apk add --no-cache gcc musl-dev linux-headers
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+ARG nodeVersion=6.17.1-alpine
+
+FROM node:${nodeVersion}
+
+EXPOSE 3000
+
+WORKDIR /src/app
+
 COPY . .
-CMD ["flask", "run"]
+
+RUN npm install && npm cache clean --force
+
+CMD [ "node", "index.js" ]
